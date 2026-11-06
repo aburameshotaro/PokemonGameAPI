@@ -30,51 +30,61 @@ namespace PokemonGame.Entities
             modelBuilder.Entity<PokemonSpecies>()
                 .HasOne(p => p.Type1)
                 .WithMany(p => p.PokemonSpeciesType1)
+                .HasForeignKey(p => p.Type1)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<PokemonSpecies>()
                 .HasOne(p => p.Type2)
                 .WithMany(p => p.PokemonSpeciesType2)
+                .HasForeignKey(p => p.Type2)
                 .OnDelete(DeleteBehavior.NoAction);
             
             modelBuilder.Entity<Evolution>()
-                .HasOne(p => p.FromPokemonSpecies)
-                .WithMany(p => p.EvolvesFrom)
+                .HasOne(e => e.FromPokemonSpecies)
+                .WithMany(e => e.EvolvesFrom)
+                .HasForeignKey(e => e.FromPokemonSpeciesId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Evolution>()
-                .HasOne(p => p.ToPokemonSpecies)
-                .WithMany(p => p.EvolvesInto)
+                .HasOne(e => e.ToPokemonSpecies)
+                .WithMany(e => e.EvolvesInto)
+                .HasForeignKey(e => e.ToPokemonSpeciesId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<TypeAttackBonus>()
-                .HasOne(p => p.DefenderType)
-                .WithMany(p => p.TypeDefendBonuses)
+                .HasOne(t => t.DefenderType)
+                .WithMany(t => t.TypeDefendBonuses)
+                .HasForeignKey(t => t.DefenderTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<TypeAttackBonus>()
-                .HasOne(p => p.AttackType)
-                .WithMany(p => p.TypeAttackBonuses)
+                .HasOne(t => t.AttackType)
+                .WithMany(t => t.TypeAttackBonuses)
+                .HasForeignKey(t => t.AttackTypeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Pokemon>()
                 .HasOne(p => p.Attack1)
-                .WithMany()
+                .WithMany(p => p.Pokemons)
+                .HasForeignKey(p => p.AttackId1)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Pokemon>()
                 .HasOne(p => p.Attack2)
-                .WithMany()
+                .WithMany(p => p.Pokemons)
+                .HasForeignKey(p => p.AttackId2)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Pokemon>()
                 .HasOne(p => p.Attack3)
-                .WithMany()
+                .WithMany(p => p.Pokemons)
+                .HasForeignKey(p => p.AttackId3)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Pokemon>()
                 .HasOne(p => p.Attack4)
-                .WithMany()
+                .WithMany(p => p.Pokemons)
+                .HasForeignKey(p => p.AttackId4)
                 .OnDelete(DeleteBehavior.NoAction);
         }
 

@@ -18,5 +18,6 @@ namespace PokemonGame.Entities
         public virtual Type Type { get; set; }
         public virtual List<LevelUpAttack> LevelUpAttacks { get; set; }
         public virtual List<TmAttack> TmAttacks { get; set; }
+        public virtual List<Pokemon> Pokemons { get; set; }
     }
 }
