@@ -5,26 +5,28 @@ namespace PokemonGame.Seeders
 {
     public class StatusesSeeder : Seeder
     {
+        private readonly string _statusesJsonPath = Path.Combine(AppContext.BaseDirectory, "Data", "statuses.json");
         public StatusesSeeder(PokemonDbContext pokemonDb) : base(pokemonDb)
         {
         }
 
-        public override void Seed()
+        public override Task Seed()
         {
             if (_dbContext.Database.CanConnect())
             {
                 if (!_dbContext.Status.Any())
                 {
-                    var statuses = getStatuses();
+                    var statuses = GetStatuses();
                     _dbContext.Status.AddRange(statuses);
                     _dbContext.SaveChanges();
                 }
             }
+            return Task.CompletedTask;
         }
 
-        private IEnumerable<Status> getStatuses()
+        private IEnumerable<Status> GetStatuses()
         {
-            string jsonStatuses = File.ReadAllText("/Data/statuses.json");
+            string jsonStatuses = File.ReadAllText(_statusesJsonPath);
             var types = JsonConvert.DeserializeObject<List<Status>>(jsonStatuses);
             return types;
         }

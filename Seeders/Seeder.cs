@@ -9,6 +9,6 @@ namespace PokemonGame.Seeders
         {
             _dbContext = pokemonDb;
         }
-        public abstract void Seed();
+        public abstract Task Seed();
     }
 }

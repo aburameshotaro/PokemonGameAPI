@@ -12,8 +12,8 @@ using PokemonGame.Entities;
 namespace PokemonGame.Migrations
 {
     [DbContext(typeof(PokemonDbContext))]
-    [Migration("20230820211745_status_table_change")]
-    partial class status_table_change
+    [Migration("20261106211229_RecreateDatabase")]
+    partial class RecreateDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,12 +71,10 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.Bag", b =>
                 {
                     b.Property<int>("TrainerId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                        .HasColumnType("int");
 
                     b.Property<int>("ItemId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
+                        .HasColumnType("int");
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -175,10 +173,7 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.Item", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CostForBuy")
                         .HasColumnType("int");
@@ -202,12 +197,10 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.LevelUpAttack", b =>
                 {
                     b.Property<int>("PokemonSpeciesId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                        .HasColumnType("int");
 
                     b.Property<int>("AttackId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
+                        .HasColumnType("int");
 
                     b.Property<int>("Level")
                         .HasColumnType("int");
@@ -245,18 +238,6 @@ namespace PokemonGame.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Attack")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Attack1Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Attack2Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Attack3Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Attack4Id")
                         .HasColumnType("int");
 
                     b.Property<int>("AttackId1")
@@ -313,13 +294,13 @@ namespace PokemonGame.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Attack1Id");
+                    b.HasIndex("AttackId1");
 
-                    b.HasIndex("Attack2Id");
+                    b.HasIndex("AttackId2");
 
-                    b.HasIndex("Attack3Id");
+                    b.HasIndex("AttackId3");
 
-                    b.HasIndex("Attack4Id");
+                    b.HasIndex("AttackId4");
 
                     b.HasIndex("PokemonSpeciesId");
 
@@ -390,9 +371,9 @@ namespace PokemonGame.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId1");
+                    b.HasIndex("Type1Id");
 
-                    b.HasIndex("TypeId2");
+                    b.HasIndex("Type2Id");
 
                     b.ToTable("PokemonSpecies");
                 });
@@ -420,10 +401,7 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.Status", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -489,10 +467,7 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.Type", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -543,15 +518,15 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.Bag", b =>
                 {
                     b.HasOne("PokemonGame.Entities.Item", "Item")
-                        .WithMany()
+                        .WithMany("Bags")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PokemonGame.Entities.Trainer", "Trainer")
                         .WithMany("Bags")
                         .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Item");
@@ -617,7 +592,7 @@ namespace PokemonGame.Migrations
                     b.HasOne("PokemonGame.Entities.PokemonSpecies", "PokemonSpecies")
                         .WithMany("LevelUpAttacks")
                         .HasForeignKey("PokemonSpeciesId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Attack");
@@ -628,24 +603,24 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.Pokemon", b =>
                 {
                     b.HasOne("PokemonGame.Entities.Attack", "Attack1")
-                        .WithMany()
-                        .HasForeignKey("Attack1Id")
+                        .WithMany("Pokemons1")
+                        .HasForeignKey("AttackId1")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PokemonGame.Entities.Attack", "Attack2")
-                        .WithMany()
-                        .HasForeignKey("Attack2Id")
+                        .WithMany("Pokemons2")
+                        .HasForeignKey("AttackId2")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("PokemonGame.Entities.Attack", "Attack3")
-                        .WithMany()
-                        .HasForeignKey("Attack3Id")
+                        .WithMany("Pokemons3")
+                        .HasForeignKey("AttackId3")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("PokemonGame.Entities.Attack", "Attack4")
-                        .WithMany()
-                        .HasForeignKey("Attack4Id")
+                        .WithMany("Pokemons4")
+                        .HasForeignKey("AttackId4")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("PokemonGame.Entities.PokemonSpecies", "PokemonSpecies")
@@ -681,13 +656,13 @@ namespace PokemonGame.Migrations
                 {
                     b.HasOne("PokemonGame.Entities.Type", "Type1")
                         .WithMany("PokemonSpeciesType1")
-                        .HasForeignKey("TypeId1")
+                        .HasForeignKey("Type1Id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("PokemonGame.Entities.Type", "Type2")
                         .WithMany("PokemonSpeciesType2")
-                        .HasForeignKey("TypeId2")
+                        .HasForeignKey("Type2Id")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Type1");
@@ -706,7 +681,7 @@ namespace PokemonGame.Migrations
                     b.HasOne("PokemonGame.Entities.PokemonSpecies", "PokemonSpecies")
                         .WithMany("ProbabilityAppearances")
                         .HasForeignKey("PokemonSpeciesId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Location");
@@ -756,11 +731,21 @@ namespace PokemonGame.Migrations
                 {
                     b.Navigation("LevelUpAttacks");
 
+                    b.Navigation("Pokemons1");
+
+                    b.Navigation("Pokemons2");
+
+                    b.Navigation("Pokemons3");
+
+                    b.Navigation("Pokemons4");
+
                     b.Navigation("TmAttacks");
                 });
 
             modelBuilder.Entity("PokemonGame.Entities.Item", b =>
                 {
+                    b.Navigation("Bags");
+
                     b.Navigation("CatchingItem")
                         .IsRequired();
 

@@ -5,7 +5,7 @@
 namespace PokemonGame.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class RecreateDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,11 +14,11 @@ namespace PokemonGame.Migrations
                 name: "Items",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CostForBuy = table.Column<int>(type: "int", nullable: false),
-                    CostForSell = table.Column<int>(type: "int", nullable: false)
+                    CostForSell = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,9 +42,9 @@ namespace PokemonGame.Migrations
                 name: "Status",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Verb = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,8 +72,7 @@ namespace PokemonGame.Migrations
                 name: "Types",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -138,14 +137,12 @@ namespace PokemonGame.Migrations
                         name: "FK_Bags_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Bags_Trainers_TrainerId",
                         column: x => x.TrainerId,
                         principalTable: "Trainers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -155,9 +152,12 @@ namespace PokemonGame.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Power = table.Column<int>(type: "int", nullable: false),
-                    InflictsStatusId = table.Column<int>(type: "int", nullable: false),
-                    ChancesToInflictStatus = table.Column<int>(type: "int", nullable: false),
+                    Power = table.Column<int>(type: "int", nullable: true),
+                    Accuracy = table.Column<int>(type: "int", nullable: false),
+                    DamageClass = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Priority = table.Column<int>(type: "int", nullable: false),
+                    InflictsStatusId = table.Column<int>(type: "int", nullable: true),
+                    ChancesToInflictStatus = table.Column<int>(type: "int", nullable: true),
                     TypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -167,8 +167,7 @@ namespace PokemonGame.Migrations
                         name: "FK_Attacks_Status_InflictsStatusId",
                         column: x => x.InflictsStatusId,
                         principalTable: "Status",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Attacks_Types_TypeId",
                         column: x => x.TypeId,
@@ -196,21 +195,21 @@ namespace PokemonGame.Migrations
                     ExperienceSpeed = table.Column<int>(type: "int", nullable: false),
                     BasicExperienceGivenWhenDefeated = table.Column<int>(type: "int", nullable: false),
                     Type1Id = table.Column<int>(type: "int", nullable: false),
-                    Type2Id = table.Column<int>(type: "int", nullable: false),
+                    Type2Id = table.Column<int>(type: "int", nullable: true),
                     TypeId1 = table.Column<int>(type: "int", nullable: false),
-                    TypeId2 = table.Column<int>(type: "int", nullable: false)
+                    TypeId2 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PokemonSpecies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PokemonSpecies_Types_TypeId1",
-                        column: x => x.TypeId1,
+                        name: "FK_PokemonSpecies_Types_Type1Id",
+                        column: x => x.Type1Id,
                         principalTable: "Types",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_PokemonSpecies_Types_TypeId2",
-                        column: x => x.TypeId2,
+                        name: "FK_PokemonSpecies_Types_Type2Id",
+                        column: x => x.Type2Id,
                         principalTable: "Types",
                         principalColumn: "Id");
                 });
@@ -244,8 +243,8 @@ namespace PokemonGame.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Level = table.Column<int>(type: "int", nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: true),
+                    ItemId = table.Column<int>(type: "int", nullable: true),
                     EvolutionByTrade = table.Column<bool>(type: "bit", nullable: false),
                     FromPokemonSpeciesId = table.Column<int>(type: "int", nullable: false),
                     ToPokemonSpeciesId = table.Column<int>(type: "int", nullable: false)
@@ -257,8 +256,7 @@ namespace PokemonGame.Migrations
                         name: "FK_Evolutions_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Evolutions_PokemonSpecies_FromPokemonSpeciesId",
                         column: x => x.FromPokemonSpeciesId,
@@ -292,8 +290,7 @@ namespace PokemonGame.Migrations
                         name: "FK_LevelUpAttacks_PokemonSpecies_PokemonSpeciesId",
                         column: x => x.PokemonSpeciesId,
                         principalTable: "PokemonSpecies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -317,8 +314,7 @@ namespace PokemonGame.Migrations
                         name: "FK_PokemonProbabilityAppearances_PokemonSpecies_PokemonSpeciesId",
                         column: x => x.PokemonSpeciesId,
                         principalTable: "PokemonSpecies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -337,40 +333,36 @@ namespace PokemonGame.Migrations
                     Speed = table.Column<int>(type: "int", nullable: false),
                     Exp = table.Column<int>(type: "int", nullable: false),
                     CurrentHp = table.Column<int>(type: "int", nullable: false),
-                    StatusId = table.Column<int>(type: "int", nullable: false),
-                    TrainerId = table.Column<int>(type: "int", nullable: false),
-                    NumberOnTeam = table.Column<int>(type: "int", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: true),
+                    TrainerId = table.Column<int>(type: "int", nullable: true),
+                    NumberOnTeam = table.Column<int>(type: "int", nullable: true),
                     AttackId1 = table.Column<int>(type: "int", nullable: false),
-                    AttackId2 = table.Column<int>(type: "int", nullable: false),
-                    AttackId3 = table.Column<int>(type: "int", nullable: false),
-                    AttackId4 = table.Column<int>(type: "int", nullable: false),
-                    Attack1Id = table.Column<int>(type: "int", nullable: false),
-                    Attack2Id = table.Column<int>(type: "int", nullable: false),
-                    Attack3Id = table.Column<int>(type: "int", nullable: false),
-                    Attack4Id = table.Column<int>(type: "int", nullable: false),
+                    AttackId2 = table.Column<int>(type: "int", nullable: true),
+                    AttackId3 = table.Column<int>(type: "int", nullable: true),
+                    AttackId4 = table.Column<int>(type: "int", nullable: true),
                     PokemonSpeciesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pokemons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pokemons_Attacks_Attack1Id",
-                        column: x => x.Attack1Id,
+                        name: "FK_Pokemons_Attacks_AttackId1",
+                        column: x => x.AttackId1,
                         principalTable: "Attacks",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Pokemons_Attacks_Attack2Id",
-                        column: x => x.Attack2Id,
+                        name: "FK_Pokemons_Attacks_AttackId2",
+                        column: x => x.AttackId2,
                         principalTable: "Attacks",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Pokemons_Attacks_Attack3Id",
-                        column: x => x.Attack3Id,
+                        name: "FK_Pokemons_Attacks_AttackId3",
+                        column: x => x.AttackId3,
                         principalTable: "Attacks",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Pokemons_Attacks_Attack4Id",
-                        column: x => x.Attack4Id,
+                        name: "FK_Pokemons_Attacks_AttackId4",
+                        column: x => x.AttackId4,
                         principalTable: "Attacks",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -383,14 +375,12 @@ namespace PokemonGame.Migrations
                         name: "FK_Pokemons_Status_StatusId",
                         column: x => x.StatusId,
                         principalTable: "Status",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Pokemons_Trainers_TrainerId",
                         column: x => x.TrainerId,
                         principalTable: "Trainers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -470,24 +460,24 @@ namespace PokemonGame.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pokemons_Attack1Id",
+                name: "IX_Pokemons_AttackId1",
                 table: "Pokemons",
-                column: "Attack1Id");
+                column: "AttackId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pokemons_Attack2Id",
+                name: "IX_Pokemons_AttackId2",
                 table: "Pokemons",
-                column: "Attack2Id");
+                column: "AttackId2");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pokemons_Attack3Id",
+                name: "IX_Pokemons_AttackId3",
                 table: "Pokemons",
-                column: "Attack3Id");
+                column: "AttackId3");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pokemons_Attack4Id",
+                name: "IX_Pokemons_AttackId4",
                 table: "Pokemons",
-                column: "Attack4Id");
+                column: "AttackId4");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Pokemons_PokemonSpeciesId",
@@ -505,14 +495,14 @@ namespace PokemonGame.Migrations
                 column: "TrainerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PokemonSpecies_TypeId1",
+                name: "IX_PokemonSpecies_Type1Id",
                 table: "PokemonSpecies",
-                column: "TypeId1");
+                column: "Type1Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PokemonSpecies_TypeId2",
+                name: "IX_PokemonSpecies_Type2Id",
                 table: "PokemonSpecies",
-                column: "TypeId2");
+                column: "Type2Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TMAttacks_AttackId",

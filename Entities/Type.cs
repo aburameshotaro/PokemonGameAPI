@@ -4,6 +4,7 @@ namespace PokemonGame.Entities
 {
     public class Type
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Name { get; set; }
         [ForeignKey("TypeId1")]

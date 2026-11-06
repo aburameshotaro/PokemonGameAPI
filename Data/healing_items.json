@@ -1,48 +1,41 @@
 [
 	{
-		"Id":1,
 		"ItemID":5,
 		"HpHealed":20,
 		"StatusHealed":false,
 		"Revive":false
 	},
 	{
-		"Id":2,
 		"ItemID":6,
 		"HpHealed":70,
 		"StatusHealed":false,
 		"Revive":false
 	},
 	{
-		"Id":3,
 		"ItemID":7,
 		"HpHealed":0,
 		"StatusHealed":true,
 		"Revive":false
 	},
 	{
-		"Id":4,
 		"ItemID":8,
 		"HpHealed":1000,
 		"StatusHealed":false,
 		"Revive":false
 	},
 	{
-		"Id":5,
 		"ItemID":9,
 		"HpHealed":1000,
 		"StatusHealed":true,
 		"Revive":false
 	},
 	{
-		"Id":6,
 		"ItemID":10,
 		"HpHealed":40,
 		"StatusHealed":false,
 		"Revive":true
 	},
 	{
-		"Id":7,
 		"ItemID":11,
 		"HpHealed":1000,
 		"StatusHealed":false,

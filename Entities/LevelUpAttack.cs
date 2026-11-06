@@ -8,12 +8,8 @@ namespace PokemonGame.Entities
     public class LevelUpAttack
     {
         public int Level { get; set; }
-        [Key]
-        [Column(Order = 1)]
         public int PokemonSpeciesId { get; set; }
         public virtual PokemonSpecies PokemonSpecies { get; set; }
-        [Key]
-        [Column(Order = 2)]
         public int AttackId { get; set; }
         public virtual Attack Attack { get; set; }
     }

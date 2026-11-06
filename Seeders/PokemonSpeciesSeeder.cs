@@ -12,20 +12,20 @@ namespace PokemonGame.Seeders
         {
         }
 
-        public async override void Seed()
+        public async override Task Seed()
         {
             if (_dbContext.Database.CanConnect())
             {
                 if (!_dbContext.PokemonSpecies.Any())
                 {
-                    var pokemonSpecies = await getPokemonSpecies();
+                    var pokemonSpecies = await GetPokemonSpecies();
                     _dbContext.PokemonSpecies.AddRange(pokemonSpecies);
                     _dbContext.SaveChanges();
                 }
             }
         }
 
-        private async Task<IEnumerable<PokemonSpecies>> getPokemonSpecies()
+        private async Task<IEnumerable<PokemonSpecies>> GetPokemonSpecies()
         {
             List<PokemonSpecies> pokemonSpecies = new List<PokemonSpecies>();
             using HttpClient client = new();

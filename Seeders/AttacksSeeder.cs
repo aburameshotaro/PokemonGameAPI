@@ -12,31 +12,30 @@ namespace PokemonGame.Seeders
         {
         }
 
-        public async override void Seed()
+        public async override Task Seed()
         {
-            if (_dbContext.Database.CanConnect())
+            if (!_dbContext.Attacks.Any())
             {
-                if (!_dbContext.Attacks.Any())
-                {
-                    var attacks = await getAttacks();
-                    _dbContext.Attacks.AddRange(attacks);
-                    _dbContext.SaveChanges();
-                }
+                var attacks = await GetAttacks();
+                _dbContext.Attacks.AddRange(attacks);
+                _dbContext.SaveChanges();
             }
+
         }
 
-        private async Task<IEnumerable<Attack>> getAttacks()
+        private async Task<IEnumerable<Attack>> GetAttacks()
         {
             List<Attack> attacks = new List<Attack>();
             using HttpClient client = new();
             var json = await client.GetStringAsync(_allAttacksUrl);
             dynamic allAtacks = JObject.Parse(json);
+            var statusRepo = new StatusRepo(_dbContext);
             foreach (var attack in allAtacks.results)
             {
                 var attackJson = await client.GetStringAsync(attack.url.ToString());
                 dynamic attackDetails = JObject.Parse(attackJson);
-                int? inflictedStatusId = await (new StatusRepo(_dbContext)).FindIdByDescription(attackDetails.effect_entries[0].effect.ToString());
-                int chanceToInflictStatus = attackDetails.effect_chance ? attackDetails.effect_chance : 100;
+                int? inflictedStatusId = statusRepo.FindIdByDescription(attackDetails.effect_entries[0].effect.ToString());
+                int? chanceToInflictStatus = attackDetails.effect_chance ? attackDetails.effect_chance : 100;
                 Attack attackDB = new Attack()
                 {
                     Id = attackDetails.id,

@@ -1,21 +1,17 @@
 [
 	{
-		"Id":1,
 		"ItemID":1,
 		"CatchingRate":1
 	},
 	{
-		"Id":2,
 		"ItemID":2,
 		"CatchingRate":2
 	},
 	{
-		"Id":3,
 		"ItemID":3,
 		"CatchingRate":4
 	},
 	{
-		"Id":4,
 		"ItemID":4,
 		"CatchingRate":255
 	}

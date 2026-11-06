@@ -8,7 +8,7 @@ namespace PokemonGame.Seeders
         {
         }
 
-        public override void Seed()
+        public override Task Seed()
         {
             throw new NotImplementedException();
         }
