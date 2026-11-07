@@ -1,0 +1,18 @@
+[
+	{
+		"ItemID":1,
+		"CatchingRate":1
+	},
+	{
+		"ItemID":2,
+		"CatchingRate":2
+	},
+	{
+		"ItemID":3,
+		"CatchingRate":4
+	},
+	{
+		"ItemID":4,
+		"CatchingRate":255
+	}
+]

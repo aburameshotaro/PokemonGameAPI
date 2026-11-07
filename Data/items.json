@@ -1,0 +1,79 @@
+[
+	{
+		"Id":1,
+		"Name":"Poke Ball",
+		"CostForBuy":200,
+		"CostForSell":100,
+		"Description":"Przedmiot używany do łapania i przechowywania Pokemonów. Najsłabszy ze wszystkich pokeballi."
+	},
+	{
+		"Id":2,
+		"Name":"Great Ball",
+		"CostForBuy":400,
+		"CostForSell":200,
+		"Description":"Przedmiot używany do łapania i przechowywania Pokemonów. Silniejsza wersja Poke Balla."
+	},
+	{
+		"Id":3,
+		"Name":"Ultra Ball",
+		"CostForBuy":1000,
+		"CostForSell":400,
+		"Description":"Przedmiot używany do łapania i przechowywania Pokemonów. Wykorzystywany na trudne do złapania sztuki."
+	},
+	{
+		"Id":4,
+		"Name":"Master Ball",
+		"CostForBuy":10000,
+		"CostForSell":2000,
+		"Description":"Przedmiot używany do łapania i przechowywania Pokemonów. Pewność złapania pokemona."
+	},
+	{
+		"Id":5,
+		"Name":"Potion",
+		"CostForBuy":100,
+		"CostForSell":50,
+		"Description":"Mała mikstura lecznicza."
+	},
+	{
+		"Id":6,
+		"Name":"Hyper Potion",
+		"CostForBuy":1000,
+		"CostForSell":500,
+		"Description":"Większa mikstura lecznicza."
+	},
+	{
+		"Id":7,
+		"Name":"Full Heal",
+		"CostForBuy":1000,
+		"CostForSell":500,
+		"Description":"Mikstura lecząca wszystkie statusy pokemonów."
+	},
+	{
+		"Id":8,
+		"Name":"Max Potion",
+		"CostForBuy":2000,
+		"CostForSell":750,
+		"Description":"Mikstura lecznicza przywracająca całe życie."
+	},
+	{
+		"Id":9,
+		"Name":"Full Restore",
+		"CostForBuy":4000,
+		"CostForSell":1500,
+		"Description":"Mikstura lecznicza przywracająca całe życie i lecząca wszystkie statusy pokemonów."
+	},
+	{
+		"Id":10,
+		"Name":"Revive",
+		"CostForBuy":600,
+		"CostForSell":200,
+		"Description":"Przedmiot służący do ocucania pokemonów."
+	},
+	{
+		"Id":11,
+		"Name":"Max Revive",
+		"CostForBuy":5000,
+		"CostForSell":1000,
+		"Description":"Przedmiot służący do ocucania pokemonów, a jednocześnie przywraca całe życie."
+	},
+]

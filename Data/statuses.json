@@ -1,0 +1,37 @@
+[
+    {
+		"id":1,
+        "name": "burned",
+		"verb": "burn"
+    },
+    {
+		"id":2,
+        "name": "frozen",
+		"verb": "freeze"
+    },
+    {
+		"id":3,
+        "name": "paralyzed",
+		"verb": "paralyze"
+    },
+    {
+		"id":4,
+        "name": "poisoned",
+		"verb": "poison"
+    },
+    {
+		"id":5,
+        "name": "asleep",
+		"verb": "puts the target to sleep"
+    },
+    {
+		"id":6,
+        "name": "flinched",
+		"verb": "make the target flinch"
+    },
+    {
+		"id":7,
+        "name": "confused",
+		"verb": "confuses the target"
+    }
+]

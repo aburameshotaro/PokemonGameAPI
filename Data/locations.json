@@ -1,0 +1,23 @@
+[
+    {
+        "name": "forest",
+    },
+    {
+        "name": "river",
+    },
+    {
+        "name": "beach",
+    },
+    {
+        "name": "city",
+    },
+    {
+        "name": "mountains",
+    },
+    {
+        "name": "volcano",
+    },
+    {
+        "name": "scrapyard",
+    }
+]
