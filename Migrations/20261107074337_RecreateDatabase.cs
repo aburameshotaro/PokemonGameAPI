@@ -149,8 +149,7 @@ namespace PokemonGame.Migrations
                 name: "Attacks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Power = table.Column<int>(type: "int", nullable: true),
                     Accuracy = table.Column<int>(type: "int", nullable: false),
@@ -180,8 +179,7 @@ namespace PokemonGame.Migrations
                 name: "PokemonSpecies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Height = table.Column<int>(type: "int", nullable: false),
@@ -195,9 +193,7 @@ namespace PokemonGame.Migrations
                     ExperienceSpeed = table.Column<int>(type: "int", nullable: false),
                     BasicExperienceGivenWhenDefeated = table.Column<int>(type: "int", nullable: false),
                     Type1Id = table.Column<int>(type: "int", nullable: false),
-                    Type2Id = table.Column<int>(type: "int", nullable: true),
-                    TypeId1 = table.Column<int>(type: "int", nullable: false),
-                    TypeId2 = table.Column<int>(type: "int", nullable: true)
+                    Type2Id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

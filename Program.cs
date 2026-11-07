@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using PokemonGame.Entities;
+using PokemonGame.Repos;
 using PokemonGame.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,11 +21,10 @@ builder.Services.AddScoped<Seeder, StatusesSeeder>();
 builder.Services.AddScoped<Seeder, AttacksSeeder>();
 builder.Services.AddScoped<Seeder, PokemonSpeciesSeeder>();
 builder.Services.AddScoped<Seeder, EvolutionSeeder>();
-
-
-
-
 builder.Services.AddScoped<DatabaseSeeder>();
+
+builder.Services.AddScoped<IItemRepo, ItemRepo>();
+builder.Services.AddScoped<IStatusRepo, StatusRepo>();
 
 var app = builder.Build();
 

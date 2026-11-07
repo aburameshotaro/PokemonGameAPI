@@ -25,10 +25,7 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.Attack", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Accuracy")
                         .HasColumnType("int");
@@ -311,10 +308,7 @@ namespace PokemonGame.Migrations
             modelBuilder.Entity("PokemonGame.Entities.PokemonSpecies", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BasicAttack")
                         .HasColumnType("int");
@@ -355,12 +349,6 @@ namespace PokemonGame.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("Type2Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TypeId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TypeId2")
                         .HasColumnType("int");
 
                     b.Property<int>("Weight")

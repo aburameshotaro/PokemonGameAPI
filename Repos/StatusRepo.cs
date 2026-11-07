@@ -1,9 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PokemonGame.Entities;
 
 namespace PokemonGame.Repos
 {
-    public class StatusRepo
+
+    public interface IStatusRepo
+    {
+        Task<int?> FindIdByDescription(string description);
+        Task<int?> FindIdByVerb(string verb);
+    }
+
+    public class StatusRepo : IStatusRepo
     {
         private readonly PokemonDbContext _context;
 
@@ -15,6 +23,10 @@ namespace PokemonGame.Repos
 
         public async Task<int?> FindIdByDescription(string description)
         {
+            if (description.IsNullOrEmpty())
+            {
+                return null;
+            }
             var statuses = await _context.Status.ToListAsync();
             foreach (var status in statuses)
             {

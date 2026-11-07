@@ -8,8 +8,11 @@ namespace PokemonGame.Seeders
     public class AttacksSeeder : Seeder
     {
         public readonly string _allAttacksUrl = "https://pokeapi.co/api/v2/move?limit=10000";
-        public AttacksSeeder(PokemonDbContext pokemonDb) : base(pokemonDb)
+        private IStatusRepo _statusRepo;
+
+        public AttacksSeeder(PokemonDbContext pokemonDb, IStatusRepo statusRepo ) : base(pokemonDb)
         {
+            _statusRepo = statusRepo;
         }
 
         public async override Task Seed()
@@ -28,27 +31,32 @@ namespace PokemonGame.Seeders
             List<Attack> attacks = new List<Attack>();
             using HttpClient client = new();
             var json = await client.GetStringAsync(_allAttacksUrl);
-            dynamic allAtacks = JObject.Parse(json);
-            var statusRepo = new StatusRepo(_dbContext);
-            foreach (var attack in allAtacks.results)
+            JObject allAtacks = JObject.Parse(json);
+            foreach (var attack in allAtacks["results"]!)
             {
-                var attackJson = await client.GetStringAsync(attack.url.ToString());
-                dynamic attackDetails = JObject.Parse(attackJson);
-                int? inflictedStatusId = statusRepo.FindIdByDescription(attackDetails.effect_entries[0].effect.ToString());
-                int? chanceToInflictStatus = attackDetails.effect_chance ? attackDetails.effect_chance : 100;
+                var attackJson = await client.GetStringAsync(attack["url"]!.Value<string>()!);
+                JObject attackDetails = JObject.Parse(attackJson);
+                var englishEffect = attackDetails["effect_entries"]?.FirstOrDefault(e => e["language"]?["name"]?.Value<string>() == "en");
+                string? effectDescription = englishEffect?["effect"]?.Value<string>();
+                int? inflictedStatusId = await _statusRepo.FindIdByDescription(effectDescription);
+                int chanceToInflictStatus = attackDetails["effect_chance"]?.Value<int?>() ?? 0;
+                
                 Attack attackDB = new Attack()
                 {
-                    Id = attackDetails.id,
-                    Name = attackDetails.name,
-                    Accuracy = attackDetails.accuracy,
-                    DamageClass = attackDetails.damage_class.name,
-                    Power = attackDetails.power,
-                    Priority = attackDetails.priority,
-                    TypeId = int.Parse(attackDetails.type.url.ToString().Split("/")[6]),
+                    Id = attackDetails["id"]!.Value<int>(),
+                    Name = attackDetails["name"]!.Value<string>()!,
+                    Accuracy = attackDetails["accuracy"].Value<int?>() ?? 100,
+                    DamageClass = attackDetails["damage_class"]["name"].Value<string>(),
+                    Power = attackDetails["power"].Value<int?>() ?? 0,
+                    Priority = attackDetails["priority"]!.Value<int>(),
+                    TypeId = int.Parse(attackDetails["type"]["url"].Value<string>().TrimEnd('/').Split("/").Last()),
                     InflictsStatusId = inflictedStatusId.HasValue ? inflictedStatusId : null,
                     ChancesToInflictStatus = inflictedStatusId.HasValue ? chanceToInflictStatus : null,
                 };
-
+                if (!_dbContext.Types.Any(t => t.Id == attackDB.TypeId))
+                {
+                    continue;
+                }
                 attacks.Add(attackDB);
             }
 
