@@ -15,7 +15,7 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
         }
 
 
-        public async Task<int?> FindIdByDescription(string description)
+        public async Task<int?> GetIdByDescriptionAsync(string description)
         {
             if (string.IsNullOrEmpty(description))
             {
@@ -31,7 +31,7 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
             }
             return null;
         }
-        public async Task<int?> FindIdByVerb(string verb)
+        public async Task<int?> GetIdByVerbAsync(string verb)
         {
             var status = await _context.Status.FirstOrDefaultAsync(s => s.Verb == verb);
             if (status == null) { return null; }

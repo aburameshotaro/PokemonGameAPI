@@ -9,7 +9,7 @@ namespace PokemonGame.Domain.Interfaces
 {
     public interface IItemRepository
     {
-        Task<Item?> GetByName(string name);
-        Task<Item?> Create(Item item);
+        Task<Item?> GetByNameAsync(string name);
+        Task<Item?> AddAsync(Item item);
     }
 }

@@ -108,11 +108,11 @@ namespace PokemonGame.Infrastructure.Persistence.Seeders
                     var itemName = itemObject["name"]!?.Value<string>()!;
                     itemName = itemName.Replace("-", " ").ToLowerInvariant();
                     var itemId = int.Parse(itemUrl.TrimEnd('/').Split('/').Last());
-                    item = await _itemRepo.GetByName(itemName);
+                    item = await _itemRepo.GetByNameAsync(itemName);
 
                     if(item == null)
                     {
-                        await _itemRepo.Create(new Item() {Id=itemId, CostForBuy = 1000, Description="Evolution item", Name=itemName, CostForSell=500});
+                        await _itemRepo.AddAsync(new Item() {Id=itemId, CostForBuy = 1000, Description="Evolution item", Name=itemName, CostForSell=500});
                     }
                 }
 

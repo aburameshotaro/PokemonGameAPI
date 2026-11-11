@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PokemonGame.Entities;
+using PokemonGame.Domain.Entities;
+using PokemonGame.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace PokemonGame.Migrations
+namespace PokemonGame.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(PokemonDbContext))]
     [Migration("20261107074337_RecreateDatabase")]
