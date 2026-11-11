@@ -3,7 +3,7 @@ using Microsoft.OpenApi;
 using PokemonGame.Application;
 using PokemonGame.Infrastructure;
 using PokemonGame.Infrastructure.Persistence;
-using PokemonGame.Seeders;
+using PokemonGame.Infrastructure.Persistence.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
