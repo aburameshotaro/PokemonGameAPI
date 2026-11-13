@@ -19,12 +19,12 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<Item?> GetByName(string name)
+        public async Task<Item?> GetByNameAsync(string name)
         {
             return await _context.Items.FirstOrDefaultAsync(i => i.Name == name); ;
         }
 
-        public async Task<Item?> Create(Item item)
+        public async Task<Item?> AddAsync(Item item)
         {
             _context.Items.Add(item);
             await _context.SaveChangesAsync();

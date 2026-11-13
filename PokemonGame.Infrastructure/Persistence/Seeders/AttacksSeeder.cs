@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PokemonGame.Entities;
-using PokemonGame.Repos;
+using PokemonGame.Domain.Entities;
+using PokemonGame.Domain.Interfaces;
 
 namespace PokemonGame.Infrastructure.Persistence.Seeders
 {
     public class AttacksSeeder : Seeder
     {
         public readonly string _allAttacksUrl = "https://pokeapi.co/api/v2/move?limit=10000";
-        private IStatusRepo _statusRepo;
+        private IStatusRepository _statusRepo;
 
-        public AttacksSeeder(PokemonDbContext pokemonDb, IStatusRepo statusRepo ) : base(pokemonDb)
+        public AttacksSeeder(PokemonDbContext pokemonDb, IStatusRepository statusRepo ) : base(pokemonDb)
         {
             _statusRepo = statusRepo;
         }
@@ -23,7 +23,6 @@ namespace PokemonGame.Infrastructure.Persistence.Seeders
                 _dbContext.Attacks.AddRange(attacks);
                 _dbContext.SaveChanges();
             }
-
         }
 
         private async Task<IEnumerable<Attack>> GetAttacks()
@@ -38,7 +37,7 @@ namespace PokemonGame.Infrastructure.Persistence.Seeders
                 JObject attackDetails = JObject.Parse(attackJson);
                 var englishEffect = attackDetails["effect_entries"]?.FirstOrDefault(e => e["language"]?["name"]?.Value<string>() == "en");
                 string? effectDescription = englishEffect?["effect"]?.Value<string>();
-                int? inflictedStatusId = await _statusRepo.FindIdByDescription(effectDescription);
+                int? inflictedStatusId = await _statusRepo.GetIdByDescriptionAsync(effectDescription);
                 int chanceToInflictStatus = attackDetails["effect_chance"]?.Value<int?>() ?? 0;
                 
                 Attack attackDB = new Attack()

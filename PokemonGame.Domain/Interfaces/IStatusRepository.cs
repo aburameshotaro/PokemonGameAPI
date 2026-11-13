@@ -8,7 +8,7 @@ namespace PokemonGame.Domain.Interfaces
 {
     public interface IStatusRepository
     {
-        Task<int?> FindIdByDescription(string description);
-        Task<int?> FindIdByVerb(string verb);
+        Task<int?> GetIdByDescriptionAsync(string description);
+        Task<int?> GetIdByVerbAsync(string verb);
     }
 }

@@ -13,9 +13,12 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         services.AddDbContext<PokemonDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(configuration.GetConnectionString("PokemonDB"),
+            x => x.MigrationsAssembly(typeof(PokemonDbContext).Assembly.FullName)));
         services.AddScoped<IItemRepository, ItemRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
+        services.AddScoped<IPokemonSpeciesRepository, PokemonSpeciesRepository>();
+        services.AddScoped<IAttackRepository, AttackRepository>();
         return services;
     }
 }

@@ -21,6 +21,9 @@ builder.Services.AddScoped<Seeder, StatusesSeeder>();
 builder.Services.AddScoped<Seeder, AttacksSeeder>();
 builder.Services.AddScoped<Seeder, PokemonSpeciesSeeder>();
 builder.Services.AddScoped<Seeder, EvolutionSeeder>();
+builder.Services.AddScoped<Seeder, LevelUpTMAttacksSeeder>();
+builder.Services.AddScoped<Seeder, TypeAttackBonusesSeeder>();
+builder.Services.AddScoped<Seeder, PokemonProbabilityAppearanceSeeder>();
 builder.Services.AddScoped<DatabaseSeeder>();
 
 var app = builder.Build();
