@@ -1,0 +1,63 @@
+[
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 10,
+    "Probability": 8
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 13,
+    "Probability": 8
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 23,
+    "Probability": 12
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 25,
+    "Probability": 4
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 29,
+    "Probability": 10
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 32,
+    "Probability": 10
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 37,
+    "Probability": 4
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 43,
+    "Probability": 9
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 46,
+    "Probability": 14
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 69,
+    "Probability": 11
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 96,
+    "Probability": 5
+  },
+  {
+    "LocationId": 1,
+    "PokemonSpeciesId": 127,
+    "Probability": 5
+  }
+
+]
