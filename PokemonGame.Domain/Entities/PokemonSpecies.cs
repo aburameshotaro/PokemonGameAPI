@@ -27,5 +27,7 @@ namespace PokemonGame.Domain.Entities
         public virtual List<Evolution> EvolvesFrom { get; set; }
         public virtual List<Evolution> EvolvesInto { get; set; }
         public virtual List<Pokemon> Pokemons { get; set; }
+
+        public int TotalStats => BasicHp + BasicAttack + BasicDefense + BasicSpecialAttack + BasicSpecialDefense + BasicSpeed;
     }
 }
