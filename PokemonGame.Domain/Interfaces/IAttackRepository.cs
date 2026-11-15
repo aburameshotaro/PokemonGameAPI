@@ -9,6 +9,8 @@ namespace PokemonGame.Domain.Interfaces
 {
     public interface IAttackRepository
     {
+        Task<Attack?> GetByIdAsync(int id);
+        Task<Attack?> GetByNameAsync(string name);
         Task<List<Attack>> GetAllAsync();
     }
 }
