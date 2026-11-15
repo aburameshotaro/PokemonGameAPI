@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokemonGame.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,6 @@ namespace PokemonGame.Domain.Interfaces
     {
         Task<int?> GetIdByDescriptionAsync(string description);
         Task<int?> GetIdByVerbAsync(string verb);
+        Task<List<Status>> GetAllAsync();
     }
 }
