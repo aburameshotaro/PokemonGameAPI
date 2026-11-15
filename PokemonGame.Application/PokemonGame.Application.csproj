@@ -16,4 +16,8 @@
     <ProjectReference Include="..\PokemonGame.Domain\PokemonGame.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Interfaces\" />
+  </ItemGroup>
+
 </Project>
