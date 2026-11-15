@@ -1,4 +1,5 @@
 ﻿using PokemonGame.Domain.Entities;
+using PokemonGame.Tests.Common.Builders;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,39 +11,11 @@ namespace PokemonGame.UnitTests.Domain
 {
     public class PokemonClassTests
     {
-        private static Pokemon CreatePokemon()
-        {
-            var species = CreateSpecies();
-            var attack1 = new Attack() { Id = 1, Name = "Thunder Shock", Power = 40, Accuracy = 100, TypeId = 13 };
-            var pokemon = new Pokemon(species, 10, attack1);
-            return pokemon;
-        }
-
-        private static PokemonSpecies CreateSpecies()
-        {
-            return new PokemonSpecies()
-            {
-                Id = 25,
-                Name = "Pikachu",
-                BasicAttack = 55,
-                BasicDefense = 40,
-                BasicHp = 100,
-                BasicSpecialAttack = 50,
-                BasicSpecialDefense = 50,
-                BasicSpeed = 90,
-                Type1Id = 13,
-                BasicExperienceGivenWhenDefeated = 100,
-                Description = "Electric rat",
-                Height = 100,
-                Weight = 50,
-                ExperienceSpeed = 2
-            };
-        }
 
         [Fact]
         public void Constructor_WithLevelLessThanOne_ThrowsException()
         {
-            var species = CreateSpecies();
+            var species = new PokemonSpeciesBuilder().Build();
             var attack = new Attack();
 
             Assert.Throws<ArgumentOutOfRangeException>(
@@ -52,20 +25,21 @@ namespace PokemonGame.UnitTests.Domain
         [Fact]
         public void Constructor_WithLevelGreaterThan100_ThrowsException()
         {
-            var species = CreateSpecies();
-            var attack = new Attack();
-
             Assert.Throws<ArgumentOutOfRangeException>(
-                () => new Pokemon(species, 101, attack));
+                () => new PokemonBuilder()
+                    .WithLevel(101)
+                    .Build());
         }
 
         [Fact]
         public void Constructor_WithNullAttack1_ThrowsException()
         {
-            var species = CreateSpecies();
+            var species = new PokemonSpeciesBuilder().Build();
 
             Assert.Throws<ArgumentNullException>(
-                () => new Pokemon(species, 10, null!));
+                () => new PokemonBuilder()
+                    .WithAttack(null)
+                    .Build()); 
         }
 
         [Theory]
@@ -76,7 +50,7 @@ namespace PokemonGame.UnitTests.Domain
         public void Heal_WithValidAmount_RestoresHp(int damageTaken, int amountHealed, int expectedHp)
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             pokemon.TakeDamage(damageTaken);
 
             // Act
@@ -92,7 +66,7 @@ namespace PokemonGame.UnitTests.Domain
         public void Heal_WhenHpWouldExceedMaxHp_CapsAtMaxHp(int damageTaken, int amountHealed, int expectedHp)
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             pokemon.TakeDamage(damageTaken);
 
             // Act
@@ -106,7 +80,7 @@ namespace PokemonGame.UnitTests.Domain
         public void Heal_WithNegativeAmount_ThrowsException()
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             pokemon.TakeDamage(20);
 
             // Act
@@ -118,7 +92,7 @@ namespace PokemonGame.UnitTests.Domain
         public void Heal_WhenPokemonIsFainted_ThrowsException()
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             pokemon.TakeDamage(100);
 
             // Act
@@ -133,7 +107,7 @@ namespace PokemonGame.UnitTests.Domain
         public void TakeDamage_WithValidAmount_ReducesCurrentHp(int damage, int expectedHp)
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             // Act
             pokemon.TakeDamage(damage);
             // Assert
@@ -144,7 +118,7 @@ namespace PokemonGame.UnitTests.Domain
         public void TakeDamage_WithNegativeAmount_ThrowsException()
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             // Act
             Assert.Throws<ArgumentException>(
                 () => pokemon.TakeDamage(-10));
@@ -154,7 +128,7 @@ namespace PokemonGame.UnitTests.Domain
         public void TakeDamage_WhenDamageExceedsCurrentHp_SetsCurrentHpToZero()
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             // Act
             pokemon.TakeDamage(150);
             // Assert
@@ -165,7 +139,7 @@ namespace PokemonGame.UnitTests.Domain
         public void Revive_WhenPokemonIsNotFainted_ThrowsException()
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             // Act
             Assert.Throws<InvalidOperationException>(
                 () => pokemon.Revive(50));
@@ -175,7 +149,7 @@ namespace PokemonGame.UnitTests.Domain
         public void Revive_WhenPokemonIsFainted_SetsCurrentHpToRestoredAmount()
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             pokemon.TakeDamage(100);
             // Act
             pokemon.Revive(50);
@@ -187,7 +161,7 @@ namespace PokemonGame.UnitTests.Domain
         public void Revive_WhenRestoredAmountExceedsMaxHp_CapsAtMaxHp()
         {
             // Arrange
-            var pokemon = CreatePokemon();
+            var pokemon = new PokemonBuilder().Build();
             pokemon.TakeDamage(100);
             // Act
             pokemon.Revive(150);

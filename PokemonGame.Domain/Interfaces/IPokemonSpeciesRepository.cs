@@ -9,6 +9,8 @@ namespace PokemonGame.Domain.Interfaces
 {
     public interface IPokemonSpeciesRepository
     {
+        Task<PokemonSpecies?> GetByIdAsync(int id);
+        Task<PokemonSpecies?> GetByNameAsync(string name);
         Task<List<PokemonSpecies>> GetAllAsync();
     }
 }

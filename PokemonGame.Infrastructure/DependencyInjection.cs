@@ -19,6 +19,8 @@ public static class DependencyInjection
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<IPokemonSpeciesRepository, PokemonSpeciesRepository>();
         services.AddScoped<IAttackRepository, AttackRepository>();
+        services.AddScoped<IPokemonRepository, PokemonRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
     }
 }

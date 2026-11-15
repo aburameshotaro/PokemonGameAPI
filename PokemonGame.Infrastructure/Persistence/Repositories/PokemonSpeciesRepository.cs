@@ -17,10 +17,22 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
             _context = pokemonDbContext;
         }
 
+        public async Task<PokemonSpecies?> GetByIdAsync(int id)
+        {
+            return await _context.PokemonSpecies.FindAsync(id);
+        }
+
+        public async Task<PokemonSpecies?> GetByNameAsync(string name)
+        {
+            return await _context.PokemonSpecies.FirstOrDefaultAsync(p => p.Name == name);
+        }
+
         public async Task<List<PokemonSpecies>> GetAllAsync()
         {
             return await _context.PokemonSpecies.ToListAsync();
         }
+
+        
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using PokemonGame.Domain.Entities;
 using PokemonGame.Domain.Interfaces;
 
 namespace PokemonGame.Infrastructure.Persistence.Repositories
@@ -13,7 +14,6 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
         { 
             _context = context;
         }
-
 
         public async Task<int?> GetIdByDescriptionAsync(string description)
         {
@@ -36,6 +36,11 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
             var status = await _context.Status.FirstOrDefaultAsync(s => s.Verb == verb);
             if (status == null) { return null; }
             return status.Id;
+        }
+
+        public async Task<List<Status>> GetAllAsync()
+        {
+            return await _context.Status.ToListAsync();
         }
     }
 }
