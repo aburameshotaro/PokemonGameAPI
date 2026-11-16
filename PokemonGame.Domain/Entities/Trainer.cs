@@ -64,14 +64,18 @@ namespace PokemonGame.Domain.Entities
 
         }
 
-        public void ChangePokemonTeamPosition(
-        int pokemonId,
-        int targetPosition)
+        public void ChangePokemonTeamPosition(int pokemonId, int targetPosition)
         {
             if (targetPosition < 1 || targetPosition > 6)
             {
                 throw new ArgumentOutOfRangeException(
                     nameof(targetPosition));
+            }
+
+            if (targetPosition > TeamSize)
+            {
+                throw new InvalidOperationException(
+                    "Target position is not occupied.");
             }
 
             var pokemon = FindPokemon(pokemonId);

@@ -189,6 +189,57 @@ namespace PokemonGame.UnitTests.Domain
             Assert.DoesNotContain(trainer.GetTeam(), p => p.NumberOnTeam == 6);
         }
 
+        [Fact]
+        public void ChangePokemonTeamPosition_When2PokemonsInTeam_SwapPositionOfPokemons()
+        {
+            // Arrange
+            var trainer = new TrainerBuilder().Build();
+
+            var pokemon1 = new PokemonBuilder()
+                .WithId(1)
+                .Build();
+
+            var pokemon2 = new PokemonBuilder()
+                .WithId(2)
+                .Build();
+            trainer.CatchPokemon(pokemon1);
+            trainer.CatchPokemon(pokemon2);
+            trainer.AddPokemonToTeam(pokemon1.Id);
+            trainer.AddPokemonToTeam(pokemon2.Id);
+
+            // Act
+            trainer.ChangePokemonTeamPosition(pokemon1.Id, 2);
+
+            // Assert
+            Assert.Equal(2, trainer.TeamSize);
+            Assert.Equal(1, pokemon2.NumberOnTeam);
+            Assert.Equal(2, pokemon1.NumberOnTeam);
+        }
+
+        [Fact]
+        public void ChangePokemonTeamPosition_WhenTooFewPokemonsInTeam_ThrowsException()
+        {
+            // Arrange
+            var trainer = new TrainerBuilder().Build();
+
+            var pokemon1 = new PokemonBuilder()
+                .WithId(1)
+                .Build();
+
+            var pokemon2 = new PokemonBuilder()
+                .WithId(2)
+                .Build();
+            trainer.CatchPokemon(pokemon1);
+            trainer.CatchPokemon(pokemon2);
+            trainer.AddPokemonToTeam(pokemon1.Id);
+            trainer.AddPokemonToTeam(pokemon2.Id);
+
+            // Act
+            
+            Assert.Throws<InvalidOperationException>(
+                () => trainer.ChangePokemonTeamPosition(pokemon1.Id, 5));
+        }
+
 
 
 
