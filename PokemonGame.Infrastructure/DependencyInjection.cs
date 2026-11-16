@@ -21,6 +21,9 @@ public static class DependencyInjection
         services.AddScoped<IAttackRepository, AttackRepository>();
         services.AddScoped<IPokemonRepository, PokemonRepository>();
         services.AddScoped<ITrainerRepository, TrainerRepository>();
+        services.AddScoped<ILocationRepository, LocationRepository>();
+        services.AddScoped<ITypeRepository, TypeRepository>();
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
     }
