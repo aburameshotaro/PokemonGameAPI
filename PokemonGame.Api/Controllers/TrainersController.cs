@@ -1,9 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PokemonGame.Api.Contracts.Trainers;
-using PokemonGame.Application.Features.Pokemons.Command.AddPokemonToTeam;
-using PokemonGame.Application.Features.Pokemons.Command.ChangePokemonTeamPosition;
-using PokemonGame.Application.Features.Pokemons.Command.RemovePokemonFromTeam;
+using PokemonGame.Application.Features.Trainers.Command.AddPokemonToTeam;
+using PokemonGame.Application.Features.Trainers.Command.ChangePokemonTeamPosition;
 
 namespace PokemonGame.Api.Controllers
 {

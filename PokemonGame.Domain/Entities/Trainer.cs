@@ -11,9 +11,16 @@ namespace PokemonGame.Domain.Entities
         public string Email { get; set; }
         public bool Admin { get; set; }
         public bool Bot { get; set; }
-        public virtual List<Bag> Bags { get; set; }
-        public virtual List<Pokemon> Pokemons { get; set; }
+        public virtual List<Bag> Bags { get; set; } = new List<Bag>();
+        public virtual List<Pokemon> Pokemons { get; set; } = new List<Pokemon>();
         public int TeamSize => Pokemons.Count(p => p.NumberOnTeam != null);
+
+        public void CatchPokemon(Pokemon pokemon)
+        {
+            pokemon.AssignToTrainer(Id);
+
+            Pokemons.Add(pokemon);
+        }
 
         public void AddPokemonToTeam(int pokemonId)
         {
@@ -22,11 +29,6 @@ namespace PokemonGame.Domain.Entities
             if (pokemon.NumberOnTeam != null)
             {
                 throw new InvalidOperationException("Pokemon is already in team.");
-            }
-
-            if (pokemon.TrainerId != Id)
-            {
-                throw new InvalidOperationException("Pokemon doesn't belong to this trainer");
             }
 
             var freeSlot = TeamSize + 1;
@@ -53,8 +55,13 @@ namespace PokemonGame.Domain.Entities
                 throw new InvalidOperationException(
                     "Cannot remove the last Pokemon from the team.");
             }
-
+            var removedPosition = pokemon.NumberOnTeam.Value;
             pokemon.RemoveFromTeam();
+            foreach (var teamPokemon in Pokemons.Where(p => p.NumberOnTeam > removedPosition))
+            {
+                teamPokemon.AssignToTeam(teamPokemon.NumberOnTeam!.Value - 1);
+            }
+
         }
 
         public void ChangePokemonTeamPosition(
@@ -93,11 +100,6 @@ namespace PokemonGame.Domain.Entities
                 .Where(p => p.NumberOnTeam != null)
                 .OrderBy(p => p.NumberOnTeam)
                 .ToList();
-        }
-
-        public bool IsTeamFull()
-        {
-            return Pokemons.Count(p => p.NumberOnTeam != null) >= 6;
         }
 
         private Pokemon FindPokemon(int pokemonId)

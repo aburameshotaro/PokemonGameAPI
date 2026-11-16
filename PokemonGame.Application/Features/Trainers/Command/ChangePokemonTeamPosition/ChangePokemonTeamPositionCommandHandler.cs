@@ -1,5 +1,4 @@
 ﻿using PokemonGame.Application.Abstractions;
-using PokemonGame.Application.Features.Trainer.Command.RemovePokemonFromTeam;
 using PokemonGame.Domain.Interfaces;
 using System;
 using System.Collections.Generic;

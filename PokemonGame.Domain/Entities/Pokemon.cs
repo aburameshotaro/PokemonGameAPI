@@ -112,6 +112,11 @@ namespace PokemonGame.Domain.Entities
             Exp += expPoints;
         }
 
+        public void AssignToTrainer(int trainerId)
+        {
+            TrainerId = trainerId;
+        }
+
         public void AssignToTeam(int position)
         {
             if (position < 1 || position > 6)
