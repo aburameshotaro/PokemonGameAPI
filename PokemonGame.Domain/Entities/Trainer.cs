@@ -7,12 +7,24 @@ namespace PokemonGame.Domain.Entities
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
         public string Email { get; set; }
-        public bool Admin { get; set; }
-        public bool Bot { get; set; }
+        public bool IsAdmin { get; set; }
+        public bool IsNpc { get; set; }
         public virtual List<Bag> Bags { get; set; } = new List<Bag>();
         public virtual List<Pokemon> Pokemons { get; set; } = new List<Pokemon>();
+        private Trainer()
+        {
+        }
+        public Trainer(
+        string username,
+        string passwordHash,
+        string email)
+        {
+            Username = username;
+            PasswordHash = passwordHash;
+            Email = email;
+        }
         public int TeamSize => Pokemons.Count(p => p.NumberOnTeam != null);
 
         public void CatchPokemon(Pokemon pokemon)

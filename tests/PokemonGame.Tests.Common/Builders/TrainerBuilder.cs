@@ -12,10 +12,10 @@ namespace PokemonGame.Tests.Common.Builders
         private readonly Trainer _trainer = new()
         {
             Username = "Ash",
-            Password = "Pikachu123",
+            PasswordHash = "Pikachu123",
             Email = "email@gmail.com",
-            Admin = false,
-            Bot = false
+            IsAdmin = false,
+            IsNpc = false
         };
 
         public Trainer Build()

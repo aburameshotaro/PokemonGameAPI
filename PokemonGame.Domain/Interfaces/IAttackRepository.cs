@@ -12,5 +12,6 @@ namespace PokemonGame.Domain.Interfaces
         Task<Attack?> GetByIdAsync(int id);
         Task<Attack?> GetByNameAsync(string name);
         Task<List<Attack>> GetAllAsync();
+        Task<List<Attack>> GetMovesForLevelAsync(int pokemonSpeciesId, int level);
     }
 }

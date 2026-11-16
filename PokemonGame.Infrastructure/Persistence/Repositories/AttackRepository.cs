@@ -33,6 +33,18 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
             return await _context.Attacks.ToListAsync();
         }
 
-        
+        public async Task<List<Attack>> GetMovesForLevelAsync(int pokemonSpeciesId, int level)
+        {
+            return await _context.LevelUpAttacks
+                .Where(x =>
+                    x.PokemonSpeciesId == pokemonSpeciesId &&
+                    x.Level <= level)
+                .OrderByDescending(x => x.Level)
+                .Select(x => x.Attack)
+                .Take(4)
+                .ToListAsync();
+        }
+
+
     }
 }
