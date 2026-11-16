@@ -1,4 +1,5 @@
-﻿using PokemonGame.Application.Abstractions;
+﻿using AutoMapper;
+using PokemonGame.Application.Abstractions;
 using PokemonGame.Application.Features.Pokemons.DTOs;
 using PokemonGame.Domain.Interfaces;
 using System;
@@ -12,11 +13,14 @@ namespace PokemonGame.Application.Features.Pokemons.Queries.GetPokemonById
     public sealed class GetPokemonByIdQueryHandler : IQueryHandler<GetPokemonByIdQuery, PokemonDto?>
     {
         private readonly IPokemonRepository _pokemonRepository;
+        private readonly IMapper _mapper;
 
         public GetPokemonByIdQueryHandler(
-            IPokemonRepository pokemonRepository)
+            IPokemonRepository pokemonRepository,
+            IMapper mapper)
         {
             _pokemonRepository = pokemonRepository;
+            _mapper = mapper;
         }
 
         public async Task<PokemonDto?> Handle(
@@ -30,15 +34,7 @@ namespace PokemonGame.Application.Features.Pokemons.Queries.GetPokemonById
                 return null;
             }
 
-            return new PokemonDto
-            {
-                Id = pokemon.Id,
-                Name = pokemon.Name,
-                Level = pokemon.Level,
-                CurrentHp = pokemon.CurrentHp,
-                MaxHp = pokemon.MaxHp,
-                SpeciesName = pokemon.PokemonSpecies.Name
-            };
+            return _mapper.Map<PokemonDto>(pokemon);
         }
     }
 }

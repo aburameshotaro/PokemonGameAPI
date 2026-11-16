@@ -29,7 +29,7 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
 
         public async Task<List<PokemonSpecies>> GetAllAsync()
         {
-            return await _context.PokemonSpecies.ToListAsync();
+            return await _context.PokemonSpecies.Include(p => p.Type1).Include(p => p.Type2).ToListAsync();
         }
 
         

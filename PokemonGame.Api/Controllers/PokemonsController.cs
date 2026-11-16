@@ -1,7 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using PokemonGame.Api.Contracts.Pokemons;
-using PokemonGame.Application.Features.Pokemons.Command;
 using PokemonGame.Application.Features.Pokemons.Queries.GetPokemonById;
 
 namespace PokemonGame.Api.Controllers
