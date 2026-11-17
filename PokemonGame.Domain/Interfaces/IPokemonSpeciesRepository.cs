@@ -12,5 +12,6 @@ namespace PokemonGame.Domain.Interfaces
         Task<PokemonSpecies?> GetByIdAsync(int id);
         Task<PokemonSpecies?> GetByNameAsync(string name);
         Task<List<PokemonSpecies>> GetAllAsync();
+        Task<List<PokemonSpecies>> GetAllStartersAsync();
     }
 }

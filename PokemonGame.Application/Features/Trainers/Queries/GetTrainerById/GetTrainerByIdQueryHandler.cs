@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace PokemonGame.Application.Features.Trainers.Queries.GetTrainerById
 {
     public sealed class GetTrainerByIdQueryHandler
-    : IQueryHandler<GetTrainerByIdQuery, TrainerDto?>
+    : IQueryHandler<GetTrainerByIdQuery, TrainerDetailsDto?>
     {
         private readonly ITrainerRepository _trainerRepository;
         private readonly IMapper _mapper;
@@ -24,16 +24,16 @@ namespace PokemonGame.Application.Features.Trainers.Queries.GetTrainerById
             _mapper = mapper;
         }
 
-        public async Task<TrainerDto?> Handle(
+        public async Task<TrainerDetailsDto?> Handle(
             GetTrainerByIdQuery request,
             CancellationToken cancellationToken)
         {
             var trainer = await _trainerRepository
-                .GetByIdAsync(request.TrainerId);
+                .GetByIdWithTeamAsync(request.TrainerId);
 
             return trainer is null
                 ? null
-                : _mapper.Map<TrainerDto>(trainer);
+                : _mapper.Map<TrainerDetailsDto>(trainer);
         }
     }
 }

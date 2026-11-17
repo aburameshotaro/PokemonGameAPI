@@ -13,7 +13,10 @@ namespace PokemonGame.Application.Features.Pokemons.Mappings
     {
         public PokemonMappings()
         {
-            CreateMap<Pokemon, PokemonDto>();
+            CreateMap<Pokemon, PokemonDto>().ForMember(
+                dest => dest.SpeciesName,
+                opt => opt.MapFrom(
+                    src => src.PokemonSpecies.Name));
         }
     }
 }

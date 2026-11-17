@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using PokemonGame.Domain.Interfaces;
+using PokemonGame.Domain.Interfaces.Security;
 using PokemonGame.Infrastructure.Persistence;
 using PokemonGame.Infrastructure.Persistence.Repositories;
+using PokemonGame.Infrastructure.Persistence.Security;
+using System;
 namespace PokemonGame.Infrastructure;
 public static class DependencyInjection
 {
@@ -23,6 +25,7 @@ public static class DependencyInjection
         services.AddScoped<ITrainerRepository, TrainerRepository>();
         services.AddScoped<ILocationRepository, LocationRepository>();
         services.AddScoped<ITypeRepository, TypeRepository>();
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;

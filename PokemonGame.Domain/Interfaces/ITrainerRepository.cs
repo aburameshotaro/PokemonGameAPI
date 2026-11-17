@@ -12,6 +12,7 @@ namespace PokemonGame.Domain.Interfaces
         Task<Trainer?> GetByIdAsync(int id);
         Task<Trainer?> GetByUsernameAsync(string username);
         Task<Trainer?> GetByIdWithTeamAsync(int id);
+        Task<bool> ExistsByEmailAsync(string email);
         Task<List<Trainer>> GetAllAsync();
         Task<Trainer> AddAsync(Trainer trainer);
         void Update(Trainer trainer);

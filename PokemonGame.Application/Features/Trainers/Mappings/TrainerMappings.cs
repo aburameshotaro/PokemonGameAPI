@@ -15,6 +15,7 @@ namespace PokemonGame.Application.Features.Trainers.Mappings
         public TrainerMappings()
         {
             CreateMap<Trainer, TrainerDto>();
+            CreateMap<Trainer, TrainerDetailsDto>();
         }
     }
 }

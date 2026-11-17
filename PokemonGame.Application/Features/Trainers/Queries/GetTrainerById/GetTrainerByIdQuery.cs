@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace PokemonGame.Application.Features.Trainers.Queries.GetTrainerById
 {
-    public sealed record GetTrainerByIdQuery(int TrainerId) : IQuery<TrainerDto?>;
+    public sealed record GetTrainerByIdQuery(int TrainerId) : IQuery<TrainerDetailsDto?>;
 }

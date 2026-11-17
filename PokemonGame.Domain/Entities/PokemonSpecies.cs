@@ -17,6 +17,8 @@ namespace PokemonGame.Domain.Entities
         public int BasicSpeed { get; set; }
         public int ExperienceSpeed { get; set; }
         public int BasicExperienceGivenWhenDefeated { get; set; }
+        public bool IsStarter { get; set; } = false;
+        public bool IsLegendary { get; set; } = false;
         public virtual List<LevelUpAttack> LevelUpAttacks { get; set; }
         public virtual List<TmAttack> TmAttacks { get; set; }
         public int Type1Id { get; set; }

@@ -5,6 +5,7 @@ using PokemonGame.Application.Features.Trainers.Command.AddPokemonToTeam;
 using PokemonGame.Application.Features.Trainers.Command.ChangePokemonTeamPosition;
 using PokemonGame.Application.Features.Trainers.Command.CreateTrainer;
 using PokemonGame.Application.Features.Trainers.Command.RemovePokemonFromTeam;
+using PokemonGame.Application.Features.Trainers.Queries.GetAllTrainersQuery;
 using PokemonGame.Application.Features.Trainers.Queries.GetTrainerById;
 
 namespace PokemonGame.Api.Controllers
@@ -34,6 +35,19 @@ namespace PokemonGame.Api.Controllers
                 nameof(GetById),
                 new { id = trainerId },
                 null);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var trainers = await _mediator.Send(new GetAllTrainersQuery());
+
+            if (trainers is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(trainers);
         }
 
         [HttpGet("{id:int}")]
