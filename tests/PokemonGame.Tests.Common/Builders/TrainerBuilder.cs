@@ -9,13 +9,10 @@ namespace PokemonGame.Tests.Common.Builders
 {
     public class TrainerBuilder
     {
-        private readonly Trainer _trainer = new()
+        private readonly Trainer _trainer = new("Ash", "Pikachu123", "email@gmail.com")
         {
-            Username = "Ash",
-            Password = "Pikachu123",
-            Email = "email@gmail.com",
-            Admin = false,
-            Bot = false
+            IsAdmin = false,
+            IsNpc = false
         };
 
         public Trainer Build()
@@ -26,6 +23,12 @@ namespace PokemonGame.Tests.Common.Builders
         public TrainerBuilder WithUsername(string username)
         {
             _trainer.Username = username;
+            return this;
+        }
+
+        public TrainerBuilder WithId(int id)
+        {
+            _trainer.Id = id;
             return this;
         }
     }

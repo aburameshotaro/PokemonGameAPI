@@ -16,13 +16,15 @@ namespace PokemonGame.Tests.Common.Builders
             new AttackBuilder().Build();
 
         private int _level = 10;
+        private int _id = 1;
 
         public Pokemon Build()
         {
             return new Pokemon(
                 _species,
                 _level,
-                _attack);
+                _attack)
+            { Id = _id};
         }
 
         public PokemonBuilder WithSpecies(
@@ -43,6 +45,13 @@ namespace PokemonGame.Tests.Common.Builders
             int level)
         {
             _level = level;
+            return this;
+        }
+
+        public PokemonBuilder WithId(
+            int id)
+        {
+            _id = id;
             return this;
         }
     }

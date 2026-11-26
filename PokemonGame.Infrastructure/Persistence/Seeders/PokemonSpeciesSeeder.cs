@@ -52,6 +52,7 @@ namespace PokemonGame.Infrastructure.Persistence.Seeders
                 var growthRateUrl = pokemonMoreDetails["growth_rate"]!["url"]!.Value<string>()!;
                 pokemonSpeciesToBeAdded.ExperienceSpeed = ExtractIdFromUrl(growthRateUrl);
                 pokemonSpeciesToBeAdded.BasicExperienceGivenWhenDefeated = pokemonDetails["base_experience"]!.Value<int>();
+                pokemonSpeciesToBeAdded.IsStarter = pokemonSpeciesToBeAdded.Id is 1 or 4 or 7;
                 var type1Url = pokemonDetails["types"]![0]!["type"]!["url"]!.Value<string>()!;
                 pokemonSpeciesToBeAdded.Type1Id = ExtractIdFromUrl(type1Url);
                 pokemonSpeciesToBeAdded.Type2Id = null;

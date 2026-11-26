@@ -42,12 +42,18 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
         {
             return await _context.Trainers
                 .Include(t => t.Pokemons.Where(p => p.NumberOnTeam != null).OrderBy(p => p.NumberOnTeam))
+                .ThenInclude(p => p.PokemonSpecies)
                 .FirstOrDefaultAsync(t => t.Id == id);
         }
 
         public async Task<Trainer?> GetByUsernameAsync(string username)
         {
             return await _context.Trainers.FirstOrDefaultAsync(p => p.Username == username);
+        }
+
+        public async Task<bool> ExistsByEmailAsync(string email)
+        {
+            return await _context.Trainers.AnyAsync(p => p.Email == email);
         }
 
         public void Update(Trainer trainer)

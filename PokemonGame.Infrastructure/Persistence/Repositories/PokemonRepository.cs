@@ -35,7 +35,7 @@ namespace PokemonGame.Infrastructure.Persistence.Repositories
 
         public async Task<Pokemon?> GetByIdAsync(int id)
         {
-            return await _context.Pokemons.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Pokemons.Include(p => p.PokemonSpecies).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<List<Pokemon>> GetByTrainerIdAsync(int trainerId)
