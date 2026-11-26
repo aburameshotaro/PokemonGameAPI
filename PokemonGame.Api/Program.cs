@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using PokemonGame.Api.Middleware;
 using PokemonGame.Application;
 using PokemonGame.Infrastructure;
 using PokemonGame.Infrastructure.Persistence;
@@ -29,6 +30,7 @@ else
     app.UseHsts();
 }
 
+app.UseErrorHandling();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
