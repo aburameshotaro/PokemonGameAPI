@@ -5,8 +5,22 @@ using PokemonGame.Application;
 using PokemonGame.Infrastructure;
 using PokemonGame.Infrastructure.Persistence;
 using PokemonGame.Infrastructure.Persistence.Seeders;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File(
+        "logs/log-.txt",
+        rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration.ReadFrom.Configuration(
+        context.Configuration);
+});
 
 // Add services to the container.
 builder.Services.AddApplication();

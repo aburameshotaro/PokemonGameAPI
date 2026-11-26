@@ -3,11 +3,14 @@
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ErrorHandlingMiddleware> _logger;
 
         public ErrorHandlingMiddleware(
-            RequestDelegate next)
+            RequestDelegate next,
+            ILogger<ErrorHandlingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(
@@ -19,9 +22,8 @@
             }
             catch (Exception ex)
             {
-                await HandleException(
-                    context,
-                    ex);
+                _logger.LogError(ex, "Unhandled exception occurred");
+                await HandleException(context, ex);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.Extensions.Logging;
+using Moq;
 using PokemonGame.Application.Features.Trainers.Command.CreateTrainer;
 using PokemonGame.Domain.Entities;
 using PokemonGame.Domain.Interfaces;
@@ -20,6 +21,7 @@ namespace PokemonGame.UnitTests.Application.Trainers.Commands.CreateTrainer
         private readonly Mock<IPokemonRepository> _pokemonRepositoryMock = new();
         private readonly Mock<IPasswordHasher> _passwordHasherMock = new();
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new();
+        private readonly Mock<ILogger<CreateTrainerCommandHandler>> _loggerMock = new();
 
         private CreateTrainerCommandHandler CreateHandler()
         {
@@ -29,7 +31,8 @@ namespace PokemonGame.UnitTests.Application.Trainers.Commands.CreateTrainer
                 _pokemonRepositoryMock.Object,
                 _attackRepositoryMock.Object,
                 _passwordHasherMock.Object,
-                _unitOfWorkMock.Object);
+                _unitOfWorkMock.Object,
+                _loggerMock.Object);
         }
 
         [Fact]

@@ -98,11 +98,13 @@ namespace PokemonGame.IntegrationTests.Infrastructure.Repositories
             var pokemon1 = new PokemonBuilder()
                 .WithSpecies(species)
                 .WithAttack(attack)
+                .WithId(1)
                 .Build();
 
             var pokemon2 = new PokemonBuilder()
                 .WithSpecies(species)
                 .WithAttack(attack)
+                .WithId(2)
                 .Build();
 
             pokemon1.TrainerId = trainer1.Id;

@@ -1,4 +1,5 @@
-﻿using PokemonGame.Application.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using PokemonGame.Application.Abstractions;
 using PokemonGame.Domain.Entities;
 using PokemonGame.Domain.Interfaces;
 using PokemonGame.Domain.Interfaces.Security;
@@ -18,6 +19,7 @@ namespace PokemonGame.Application.Features.Trainers.Command.CreateTrainer
         private readonly IAttackRepository _attackRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly ILogger<CreateTrainerCommandHandler> _logger;
 
         public CreateTrainerCommandHandler(
             ITrainerRepository trainerRepository,
@@ -25,7 +27,8 @@ namespace PokemonGame.Application.Features.Trainers.Command.CreateTrainer
             IPokemonRepository pokemonRepository,
             IAttackRepository attackRepository,
             IPasswordHasher passwordHasher,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            ILogger<CreateTrainerCommandHandler> logger)
         {
             _trainerRepository = trainerRepository;
             _speciesRepository = speciesRepository;
@@ -33,12 +36,15 @@ namespace PokemonGame.Application.Features.Trainers.Command.CreateTrainer
             _attackRepository = attackRepository;
             _passwordHasher = passwordHasher;
             _unitOfWork = unitOfWork;
+            _logger = logger;
         }
 
         public async Task<int> Handle(
             CreateTrainerCommand command,
             CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Creating trainer {Username}", command.Username);
+
             if (await _trainerRepository.GetByUsernameAsync(command.Username) is not null)
             {
                 throw new InvalidOperationException(
@@ -90,6 +96,8 @@ namespace PokemonGame.Application.Features.Trainers.Command.CreateTrainer
 
             await _unitOfWork.SaveChangesAsync(
                 cancellationToken);
+
+            _logger.LogInformation("Trainer {TrainerId} created with starter {Species}", trainer.Id, starterSpecies.Name);
 
             return trainer.Id;
         }
