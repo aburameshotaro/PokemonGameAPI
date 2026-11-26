@@ -25,5 +25,11 @@ namespace PokemonGame.Tests.Common.Builders
             _trainer.Username = username;
             return this;
         }
+
+        public TrainerBuilder WithId(int id)
+        {
+            _trainer.Id = id;
+            return this;
+        }
     }
 }

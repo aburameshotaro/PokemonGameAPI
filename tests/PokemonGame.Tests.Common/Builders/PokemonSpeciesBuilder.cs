@@ -52,5 +52,11 @@ namespace PokemonGame.Tests.Common.Builders
             _species.Type1Id = typeId;
             return this;
         }
+
+        public PokemonSpeciesBuilder WithStarter(bool isStarter)
+        {
+            _species.IsStarter = isStarter;
+            return this;
+        }
     }
 }

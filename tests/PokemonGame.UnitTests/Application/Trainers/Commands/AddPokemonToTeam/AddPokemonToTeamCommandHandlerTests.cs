@@ -31,6 +31,7 @@ namespace PokemonGame.UnitTests.Application.Trainers.Commands.AddPokemonToTeam
         public async Task Handle_AddsPokemonToTeam()
         {
             var trainer = new TrainerBuilder()
+                .WithId(1)
                 .Build();
 
             var pokemon = new PokemonBuilder()
