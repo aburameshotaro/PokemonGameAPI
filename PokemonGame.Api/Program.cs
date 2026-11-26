@@ -14,18 +14,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<Seeder, LocationSeeder>();
-builder.Services.AddScoped<Seeder, ItemsSeeder>();
-builder.Services.AddScoped<Seeder, TypesSeeder>();
-builder.Services.AddScoped<Seeder, StatusesSeeder>();
-builder.Services.AddScoped<Seeder, AttacksSeeder>();
-builder.Services.AddScoped<Seeder, PokemonSpeciesSeeder>();
-builder.Services.AddScoped<Seeder, EvolutionSeeder>();
-builder.Services.AddScoped<Seeder, LevelUpTMAttacksSeeder>();
-builder.Services.AddScoped<Seeder, TypeAttackBonusesSeeder>();
-builder.Services.AddScoped<Seeder, PokemonProbabilityAppearanceSeeder>();
-builder.Services.AddScoped<DatabaseSeeder>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
